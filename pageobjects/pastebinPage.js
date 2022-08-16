@@ -19,6 +19,8 @@ class PastebinPage extends Page {
   git reset $(git commit-tree HEAD^{tree} -m "Legacy code")
   git push origin master --force`;}
   get bashHighlighter() { return $('[class="bash"]'); }
+  get iCanWinTitle() { return `helloweb` }
+  get iCanWinText() { return `Hello from WebDriver` }
 
   open() {
     super.open('http://pastebin.com');
