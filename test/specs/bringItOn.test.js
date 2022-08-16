@@ -1,27 +1,30 @@
+import PastebinPage from "./../../pageobjects/pastebinPage";
+
+
 describe("Bring it on", () => {
     
     it("Creat new paste", async () => {
-    let bashText = `git config --global user.name "New Sheriff in Town"
-    git reset $ (git commit-tree HEAD ^ {tree} -m "Legacy code")
-    git push origin master --force")`;
-    await browser.url("https://pastebin.com");
-    await $(`//textarea[@id="postform-text"]`).setValue(bashText);
+    await PastebinPage.open();
+    await PastebinPage.pasteArea.setValue(PastebinPage.pasteText);
 
-    await $(`#select2-postform-format-container`).waitForClickable();
-    await $(`#select2-postform-format-container`).click();
-    await $(`//input[@class="select2-search__field"]`).addValue("Bash");
-    await $(`//input[@class="select2-search__field"]`).keys('\uE007');
-    await $(`#select2-postform-expiration-container`).waitForClickable();
-    await $(`#select2-postform-expiration-container`).click();
-    let neededExpiration = await $(`#select2-postform-expiration-results :nth-child(3)`);
-    await neededExpiration.waitForClickable();
-    await neededExpiration.click();
-    await $(`[class="form-control"]`).setValue("how to gain dominance among developers");
-    await $(`//button[@type="submit"]`).waitForClickable();
-    await $(`//button[@type="submit"]`).click();
+    await PastebinPage.syntaxHighlighting.waitForClickable();
+    await PastebinPage.syntaxHighlighting.click();
+    await PastebinPage.highlighterInput.addValue("Bash");
+    await PastebinPage.highlighterInput.keys('\uE007');
+
+    await PastebinPage.expirationList.waitForClickable();
+    await PastebinPage.expirationList.click();
+
+    await PastebinPage.neededExpiration.waitForClickable();
+    await PastebinPage.neededExpiration.click();
+
+    await PastebinPage.pasteName.setValue(PastebinPage.title);
+    await PastebinPage.createPasteBtn.waitForClickable();
+    await PastebinPage.createPasteBtn.click();
+
     await browser.refresh();
-    await expect(browser).toHaveTitleContaining("how to gain dominance among developers");
-    await expect ($(`[class="bash"]`)).toExist();
-    await expect ($(`[class="textarea -raw js-paste-raw"]`)).toHaveValueContaining(bashText);
+    await expect(browser).toHaveTitleContaining(PastebinPage.title);
+    await expect (PastebinPage.bashHighlighter).toExist();
+    await expect (PastebinPage.pasteTextElement).toHaveValueContaining(PastebinPage.pasteText);
     })
 })
