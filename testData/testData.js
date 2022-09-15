@@ -1,4 +1,4 @@
-class testData  {
+class TestData  {
    get neededRegion() { return "Frankfurt"};
    get neededTerm() { return "1 Year"};
    get neededModel() { return "Regular"};
@@ -8,4 +8,4 @@ class testData  {
 
 }
 
-export default new  testData();
+export default new TestData();
